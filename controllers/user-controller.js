@@ -1,11 +1,11 @@
-const { User } = require('../models');
+const { User, Thought } = require('../models');
 
 const userController = {
   // get all users
   getAllUsers(req, res) {
     User.find({})
       .populate({ path: 'friends', select: '-__v' })
-      //.populate({ path: 'thoughts', select: '-__v' })
+      .populate({ path: 'thoughts', select: '-__v' })
       .select('-__v')
       .then(data => res.json(data))
       .catch(err => {
@@ -18,7 +18,7 @@ const userController = {
   getUserById({ params }, res) {
     User.findOne({ _id: params.userid })
       .populate({ path: 'friends', select: '-__v' })
-      // .populate({ path: 'thoughts', select: '-__v', populate: { path: 'reactions' }})
+      .populate({ path: 'thoughts', select: '-__v', populate: { path: 'reactions' }})
       .select('-__v')
       .then(data => {
         if (!data) {
@@ -67,7 +67,14 @@ const userController = {
           res.status(404).json({ message: 'No user found with this id' });
           return;
         }
-        res.json({ message: 'User successfully deleted' });
+        Thought.deleteMany({ username: data.username })
+          .then(deletedData => {
+            if (deletedData) {
+              res.status(200).json({ message: 'User successfully deleted' });
+            } else {
+              res.status(400).json({ message: 'An error occured while deleting user thoughts' });
+            }
+          });
       })
       .catch(err => {
         console.log(err);
