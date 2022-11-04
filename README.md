@@ -5,7 +5,7 @@
 
   ## Table of Contents
   - [Installation](#installation)
-  - [Links] (#links)
+  - [Links](#links)
   - [Questions](#questions)
 
   ## Installation
@@ -19,7 +19,7 @@
 
   ## Links
   Walkthrough: https://drive.google.com/file/d/1Vvw3E9TzAGbOjiXDU5V9y9NXdZKM7-VS/view?usp=sharing 
-  
+
   ## Questions
   Github: https://github.com/jacobmcanepa
   
